@@ -1,7 +1,7 @@
 
 async function createUser(){
     dataSignUp = {
-        email: "nombre6@email.com",
+        email: "nombre@email.com",
         password: "123456",
         firstName: "nombre",
         lastName: "apellido"
@@ -20,7 +20,7 @@ async function createUser(){
 
 async function getToken(){
     dataLogIn = {
-        email: "nombre6@email.com",
+        email: "nombre@email.com",
         password: "123456"
     }
 

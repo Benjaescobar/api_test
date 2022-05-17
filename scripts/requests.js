@@ -2,7 +2,7 @@
 
 async function createUser(){
     dataSignUp = {
-        email: "nombre6@email.com",
+        email: "nombre2@email.com",
         password: "123456",
         firstName: "nombre",
         lastName: "apellido"
@@ -21,7 +21,7 @@ async function createUser(){
 
 async function getToken(){
     dataLogIn = {
-        email: "nombre5@email.com",
+        email: "nombre2@email.com",
         password: "123456"
     }
 
@@ -96,6 +96,32 @@ async function getGame(){
     const id = document.getElementById("game-id").value;
     const token = await getToken();
     const responseAll = await fetch(`http://localhost:3000/api/games/${id}`, {
+        method: "GET",
+        headers: {"Authorization": `Bearer ${token}`}
+    }).then(respuesta => {
+        return respuesta.text()
+    });
+
+    console.log(responseAll);
+}
+
+async function getGameState(){
+    const id = document.getElementById("game-gamestate-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${id}/state`, {
+        method: "GET",
+        headers: {"Authorization": `Bearer ${token}`}
+    }).then(respuesta => {
+        return respuesta.text()
+    });
+
+    console.log(responseAll);
+}
+
+async function getGameLogs(){
+    const id = document.getElementById("game-gamelogs-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${id}/logs`, {
         method: "GET",
         headers: {"Authorization": `Bearer ${token}`}
     }).then(respuesta => {
@@ -180,4 +206,147 @@ async function currentTurn(){
     });
 
     console.log(responseAll);
+}
+
+// Fruits and consumables
+
+async function getFruits(){
+    const gameId = document.getElementById("game-getfruit-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/fruits`, {
+        method: "GET",
+        headers: {"Authorization": `Bearer ${token}`}
+    }).then(respuesta => {
+        return respuesta.text()
+    });
+
+    console.log(responseAll);
+}
+
+async function buyFruit(){
+    const gameId = document.getElementById("game-buyfruit-id").value;
+    const name = document.getElementById("fruit-buyfruit-name").value;
+    data = {
+        name,
+    }
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/fruits/buy`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
+}
+
+async function sellFruit(){
+    const gameId = document.getElementById("game-sellfruit-id").value;
+    const fruitId = document.getElementById("fruit-sellfruit-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/fruits/${fruitId}/sell`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`},
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
+}
+
+async function consumeFruit(){
+    const gameId = document.getElementById("game-consumefruit-id").value;
+    const fruitId = document.getElementById("fruit-consumefruit-id").value;
+    const pirateId = document.getElementById("pirate-consumefruit-id").value;
+    data = {
+        pirateId,
+    }
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/fruits/${fruitId}/consume`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
+}
+
+async function getConsumables(){
+    const gameId = document.getElementById("game-getconsumable-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/consumables`, {
+        method: "GET",
+        headers: {"Authorization": `Bearer ${token}`}
+    }).then(respuesta => {
+        return respuesta.text()
+    });
+
+    console.log(responseAll);
+}
+
+async function buyConsumable(){
+    const gameId = document.getElementById("game-buyconsumable-id").value;
+    const name = document.getElementById("consumable-buyconsumable-name").value;
+    data = {
+        name,
+    }
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/consumables/buy`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
+}
+
+async function sellConsumable(){
+    const gameId = document.getElementById("game-sellconsumable-id").value;
+    const consumableId = document.getElementById("consumable-sellconsumable-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/consumables/${consumableId}/sell`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`},
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
+}
+
+async function consumeConsumable(){
+    const gameId = document.getElementById("game-consumeconsumable-id").value;
+    const consumableId = document.getElementById("consumable-consumeconsumable-id").value;
+    const token = await getToken();
+    const responseAll = await fetch(`http://localhost:3000/api/games/${gameId}/consumables/${consumableId}/consume`, {
+            method: "POST",
+            headers: {"Authorization": `Bearer ${token}`},
+        }).then(respuesta => {
+            console.log(respuesta.statusText)
+            return respuesta.text()
+        });
+
+    console.log(responseAll);
+
+    return responseAll
 }
